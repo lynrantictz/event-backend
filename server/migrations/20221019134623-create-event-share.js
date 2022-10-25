@@ -2,17 +2,17 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('EventAmounts', {
+    await queryInterface.createTable('EventShares', {
       id: {
         type: Sequelize.UUID,
         deafultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
-      eventAmountCategoryId: {
+      userId: {
         type: Sequelize.UUID,
         references: {
           model: {
-            tableName: 'EventAmountCategories',
+            tableName: 'users',
             schema: 'schema'
           },
           key: 'id'
@@ -30,8 +30,16 @@ module.exports = {
         },
         allowNull: false
       },
-      amount: {
-        type: Sequelize.DECIMAL(10, 2)
+      shareId: {
+        type: Sequelize.UUID,
+        references: {
+          model: {
+            tableName: 'shares',
+            schema: 'schema'
+          },
+          key: 'id'
+        },
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -44,6 +52,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('EventAmounts');
+    await queryInterface.dropTable('EventShares');
   }
 };

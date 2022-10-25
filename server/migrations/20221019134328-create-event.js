@@ -2,39 +2,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Payments', {
+    await queryInterface.createTable('Events', {
       id: {
         type: Sequelize.UUID,
         deafultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
-      eventId: {
+      eventCategoryId: {
         type: Sequelize.UUID,
         references: {
           model: {
-            tableName: 'events',
+            tableName: 'EventCategories',
             schema: 'schema'
           },
           key: 'id'
         },
         allowNull: false
       },
-      paymentTypeId: {
+      eventGroupId: {
         type: Sequelize.UUID,
         references: {
           model: {
-            tableName: 'PaymentTypes',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false
-      },
-      eventAmountId: {
-        type: Sequelize.UUID,
-        references: {
-          model: {
-            tableName: 'EventAmounts',
+            tableName: 'EventGroups',
             schema: 'schema'
           },
           key: 'id'
@@ -52,12 +41,31 @@ module.exports = {
         },
         allowNull: false
       },
-      confirmationNumber: {
-        type: Sequelize.STRING,
-        allowNull: true
+      title: {
+        type: Sequelize.STRING
       },
-      amount: {
-        type: Sequelize.DECIMAL(10, 2)
+      description: {
+        type: Sequelize.STRING
+      },
+      publishedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      dueAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      openAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      closedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        deafultValue: false
       },
       createdAt: {
         allowNull: false,
@@ -70,6 +78,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Payments');
+    await queryInterface.dropTable('Events');
   }
 };

@@ -2,15 +2,15 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('EventShares', {
+    await queryInterface.createTable('Shares', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        deafultValue: Sequelize.UUIDV4,
+        primaryKey: true
       },
-      firstName: {
-        type: Sequelize.STRING
+      title: {
+        type: Sequelize.STRING,
+        unique: true
       },
       createdAt: {
         allowNull: false,
@@ -23,6 +23,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('EventShares');
+    await queryInterface.dropTable('Shares');
   }
 };

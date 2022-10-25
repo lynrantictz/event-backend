@@ -4,19 +4,28 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('EventGroups', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        deafultValue: Sequelize.UUIDV4,
+        primaryKey: true
       },
-      firstName: {
-        type: Sequelize.STRING
+      userId: {
+        type: Sequelize.UUID,
+        references: {
+          model: {
+            tableName: 'users',
+            schema: 'schema'
+          },
+          key: 'id'
+        },
+        allowNull: false
       },
-      lastName: {
-        type: Sequelize.STRING
+      title: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      email: {
-        type: Sequelize.STRING
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        deafultValue: true
       },
       createdAt: {
         allowNull: false,

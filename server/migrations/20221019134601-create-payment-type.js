@@ -4,19 +4,13 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('PaymentTypes', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        deafultValue: Sequelize.UUIDV4,
+        primaryKey: true
       },
-      firstName: {
-        type: Sequelize.STRING
-      },
-      lastName: {
-        type: Sequelize.STRING
-      },
-      email: {
-        type: Sequelize.STRING
+      title: {
+        type: Sequelize.STRING,
+        unique: true
       },
       createdAt: {
         allowNull: false,
